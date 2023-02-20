@@ -1,10 +1,12 @@
 <script>
-export default {};
+export default {
+  components: {},
+};
 </script>
 
 <template>
   <div>
-    <p>Hello world</p>
+    <p>Invoice app</p>
   </div>
 </template>
 
