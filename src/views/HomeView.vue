@@ -1,14 +1,13 @@
 <script>
-import TheWelcome from "../components/TheWelcome.vue";
+import HelloWorld from "../components/HelloWorld.vue";
 
 export default {
   components: {
-    TheWelcome,
+    HelloWorld,
   },
 };
 </script>
 
-<template lang="pug">
-main
-  TheWelcome
+<template>
+  <main><HelloWorld /></main>
 </template>

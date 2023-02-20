@@ -1,6 +1,6 @@
-# vue-starter
+# invoice-app
 
-This template should help get you started developing with Vue 3 in Vite.
+- cloned vue-starter template to get start developing with Vue 3 in Vite.
 
 ## Recommended IDE Setup
 
