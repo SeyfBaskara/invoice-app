@@ -12,6 +12,6 @@ export default {
 
 <style scoped>
 p {
-  color: blueviolet;
+  color: blue;
 }
 </style>

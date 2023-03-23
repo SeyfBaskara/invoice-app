@@ -1,12 +1,10 @@
 <script>
 import Header from "./Header/Header.vue";
-import Footer from "./Footer/Footer.vue";
 
 export default {
   name: "Layout",
   components: {
     Header,
-    Footer,
   },
 };
 </script>
@@ -14,7 +12,6 @@ export default {
 <template>
   <Header />
   <slot />
-  <Footer />
 </template>
 
 <style scoped></style>
