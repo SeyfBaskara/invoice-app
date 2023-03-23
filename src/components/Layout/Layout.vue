@@ -10,8 +10,17 @@ export default {
 </script>
 
 <template>
-  <Header />
-  <slot />
+  <div class="page">
+    <Header />
+    <slot />
+  </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+@media screen and (min-width: 976px) {
+  .page {
+    display: flex;
+    height: 100vh;
+  }
+}
+</style>

@@ -12,4 +12,10 @@
   --text-color: #212529;
   --background-color: #ffffff;
   --border-color: #dee2e6; */
+
+  /*Breakpoints variable*/
+  /* --breakpoint-small: 480px;
+  --breakpoint-medium: 768px;
+  --breakpoint-large: 976px;
+  --breakpoint-xlarge: 1440px; */
 }

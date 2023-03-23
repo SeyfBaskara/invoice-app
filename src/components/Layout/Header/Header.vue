@@ -41,8 +41,8 @@ export default {
   background-color: var(--primary-color);
   height: 100%;
   width: 80px;
-  border-top-right-radius: 30%;
-  border-bottom-right-radius: 30%;
+  border-top-right-radius: 15px;
+  border-bottom-right-radius: 15px;
 }
 .header-right {
   display: flex;
@@ -54,5 +54,22 @@ export default {
   height: 35px;
   width: 35px;
   border-radius: 50%;
+}
+@media screen and (min-width: 976px) {
+  .header {
+    flex-direction: column;
+    height: inherit;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+  }
+  .logo {
+    height: 12%;
+    width: 95px;
+  }
+  .header-right {
+    flex-direction: column;
+    width: auto;
+    height: 200px;
+  }
 }
 </style>
