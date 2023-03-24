@@ -25,4 +25,15 @@ export default {
 .home {
   padding: 1.2rem;
 }
+@media screen and (min-width: 768px) {
+  .home {
+    width: 80vw;
+    margin: 0 auto;
+  }
+}
+@media screen and (min-width: 976px) {
+  .home {
+    width: 65vw;
+  }
+}
 </style>

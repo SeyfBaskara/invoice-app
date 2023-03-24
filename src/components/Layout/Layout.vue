@@ -17,7 +17,7 @@ export default {
 </template>
 
 <style scoped>
-@media screen and (min-width: 976px) {
+@media screen and (min-width: 768px) {
   .page {
     display: flex;
     height: 100vh;

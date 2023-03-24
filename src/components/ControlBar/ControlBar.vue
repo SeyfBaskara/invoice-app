@@ -10,6 +10,14 @@ export default {
   data: function () {
     return {};
   },
+  methods: {
+    handleAddnew() {
+      console.log("add new");
+    },
+    handleFilter() {
+      console.log("filter");
+    },
+  },
 };
 </script>
 
@@ -21,14 +29,14 @@ export default {
     </div>
     <div class="controlbar__right">
       <div class="filter">
-        <h4>Filter</h4>
-        <IconArrowDown />
+        <h4>Filter <span class="controlbar_hidden">by status</span></h4>
+        <IconArrowDown @click="handleFilter" />
       </div>
       <div class="addnew">
-        <div class="addnew__plus-icon">
+        <div @click="handleAddnew" class="addnew__plus-icon">
           <IconPlus />
         </div>
-        <h4 class="addnew__text">New</h4>
+        <h4>New <span class="controlbar_hidden">Invoice</span></h4>
       </div>
     </div>
   </section>
@@ -39,6 +47,10 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: 1rem;
+}
+.controlbar_hidden {
+  display: none;
 }
 .invoices {
   line-height: 1.5rem;
@@ -57,8 +69,10 @@ export default {
 .filter {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   gap: 0.8rem;
+}
+.filter:nth-child(1) {
+  cursor: pointer;
 }
 .addnew {
   display: flex;
@@ -72,8 +86,26 @@ export default {
   background-color: var(--bg-light-color);
   padding: 0.8rem;
   border-radius: 50%;
+  cursor: pointer;
 }
-.addnew__text {
+.addnew > h4 {
   color: white;
+}
+
+@media screen and (min-width: 480px) {
+  .controlbar__right {
+    width: 340px;
+  }
+  .controlbar_hidden {
+    display: block;
+  }
+  .filter > h4 {
+    display: flex;
+    gap: 0.3rem;
+  }
+  .addnew > h4 {
+    display: flex;
+    gap: 0.3rem;
+  }
 }
 </style>
