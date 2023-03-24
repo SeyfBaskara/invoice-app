@@ -1,17 +1,28 @@
 <script>
-import HelloWorld from "../components/HelloWorld.vue";
 import Layout from "../components/Layout/Layout.vue";
+import Invoices from "../components/Invoices/Invoices.vue";
+import ControlBar from "../components/ControlBar/ControlBar.vue";
 
 export default {
   components: {
     Layout,
-    HelloWorld,
+    Invoices,
+    ControlBar,
   },
 };
 </script>
 
 <template>
   <Layout>
-    <main><HelloWorld /></main>
+    <main class="home">
+      <ControlBar />
+      <Invoices />
+    </main>
   </Layout>
 </template>
+
+<style scoped>
+.home {
+  padding: 1.2rem;
+}
+</style>

@@ -3,6 +3,12 @@
   --secondary-color: #9277ff;
   --bg-primary-color: #1e2139;
   --bg-secondary-color: #252945;
+  --bg-light-color: #f8f8fb;
+
+  /*Text color variable*/
+  --text-primary-color: #7e88c3;
+  --text-secondary-color: #0c0e16;
+
   /* --success-color: #28a745;
   --danger-color: #dc3545;
   --warning-color: #ffc107;
