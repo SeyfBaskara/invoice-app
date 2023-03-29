@@ -1,4 +1,6 @@
 <script>
+import { formatCurrency } from "../../utils/formatCurrency";
+
 export default {
   components: {},
   data: function () {
@@ -12,6 +14,7 @@ export default {
       const data = await res.json();
       return data;
     },
+    formatCurrency,
   },
   async created() {
     this.invoices = await this.fetchInvoices();
@@ -30,7 +33,7 @@ export default {
         <div class="invoice__body">
           <div>
             <p>Due {{ invoice.paymentDue }}</p>
-            <p>{{ invoice.total }}</p>
+            <p>{{ formatCurrency(invoice.total) }}</p>
           </div>
           <p class="body__status">{{ invoice.status }}</p>
         </div>
