@@ -58,7 +58,8 @@ export default {
 @media screen and (min-width: 768px) {
   .header {
     flex-direction: column;
-    height: inherit;
+    height: 100%;
+    position: fixed;
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
   }
