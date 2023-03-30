@@ -17,9 +17,6 @@ export default {
     capitalizeFirstLetter(str) {
       return str.charAt(0).toUpperCase() + str.slice(1);
     },
-    hasPaid(str) {
-      return str === "paid" ? true : false;
-    },
     formatCurrency,
   },
   async created() {
@@ -42,10 +39,7 @@ export default {
             <p class="invoice__date">Due {{ invoice.paymentDue }}</p>
             <p class="invoice__total">{{ formatCurrency(invoice.total) }}</p>
           </div>
-          <p
-            class="body__status"
-            :class="[hasPaid(invoice.status) ? 'paid' : 'pending']"
-          >
+          <p class="body__status" :class="[invoice.status]">
             {{ capitalizeFirstLetter(invoice.status) }}
           </p>
         </div>
@@ -113,6 +107,10 @@ export default {
 .pending {
   background-color: rgba(246, 232, 211, 0.5);
   color: orange;
+}
+.draft {
+  background-color: rgba(231, 233, 233, 0.5);
+  color: black;
 }
 .body__status::before {
   content: "\2022";
