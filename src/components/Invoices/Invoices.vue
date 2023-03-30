@@ -14,11 +14,18 @@ export default {
       const data = await res.json();
       return data;
     },
+    capitalizeFirstLetter(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
+    },
+    hasPaid(str) {
+      return str === "paid" ? true : false;
+    },
     formatCurrency,
   },
   async created() {
     this.invoices = await this.fetchInvoices();
   },
+  computed: {},
 };
 </script>
 
@@ -27,15 +34,20 @@ export default {
     <ul class="invoices__list">
       <li v-for="invoice in invoices" :key="invoice.id" class="invoice__item">
         <div class="invoice__header">
-          <p class="header__id">#{{ invoice.id }}</p>
-          <p class="header__name">{{ invoice.clientName }}</p>
+          <p class="invoice__id">#{{ invoice.id }}</p>
+          <p class="invoice__name">{{ invoice.clientName }}</p>
         </div>
         <div class="invoice__body">
           <div>
-            <p>Due {{ invoice.paymentDue }}</p>
-            <p>{{ formatCurrency(invoice.total) }}</p>
+            <p class="invoice__date">Due {{ invoice.paymentDue }}</p>
+            <p class="invoice__total">{{ formatCurrency(invoice.total) }}</p>
           </div>
-          <p class="body__status">{{ invoice.status }}</p>
+          <p
+            class="body__status"
+            :class="[hasPaid(invoice.status) ? 'paid' : 'pending']"
+          >
+            {{ capitalizeFirstLetter(invoice.status) }}
+          </p>
         </div>
       </li>
     </ul>
@@ -67,11 +79,12 @@ export default {
   justify-content: space-between;
   align-items: center;
 }
-.header__id {
+.invoice__id {
   font-size: small;
   font-weight: bold;
 }
-.header__name {
+.invoice__name,
+.invoice__date {
   font-size: small;
   color: var(--text-primary-color);
 }
@@ -80,22 +93,33 @@ export default {
   justify-content: space-between;
   align-items: center;
 }
+.invoice__total {
+  font-size: large;
+  font-weight: bold;
+}
 .body__status {
-  background-color: lightpink;
   width: 100px;
   text-align: center;
   border-radius: 10px;
-  font-weight: bold;
+  font-weight: bolder;
   font-size: small;
   padding: 0.5rem;
+  padding-top: 0;
 }
-/* .body__status::before {
+.paid {
+  background-color: rgba(204, 246, 218, 0.5);
+  color: rgb(80, 221, 127);
+}
+.pending {
+  background-color: rgba(246, 232, 211, 0.5);
+  color: orange;
+}
+.body__status::before {
   content: "\2022";
   display: inline-block;
-  width: 1rem;
   position: relative;
-  top: 7px;
-  right: 10px;
-  font-size: xx-large;
-} */
+  top: 3px;
+  margin-right: 0.3rem;
+  font-size: x-large;
+}
 </style>
