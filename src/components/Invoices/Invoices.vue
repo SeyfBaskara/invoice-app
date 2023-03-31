@@ -1,16 +1,24 @@
 <script>
 import { formatCurrency } from "../../utils/formatCurrency";
 import IconArrowRight from "../../assets/icons/IconArrowRight.vue";
+import EmptyInvoiceFigure from "./EmptyInvoiceFigure.vue";
 
 export default {
   components: {
     IconArrowRight,
+    EmptyInvoiceFigure,
   },
   data: function () {
     return {
       invoices: [],
       isMobile: false,
     };
+  },
+  mounted() {
+    window.addEventListener("resize", this.checkScreenSize);
+  },
+  beforeUnmount() {
+    window.removeEventListener("resize", this.checkScreenSize);
   },
   methods: {
     async fetchInvoices() {
@@ -29,18 +37,18 @@ export default {
   async created() {
     this.invoices = await this.fetchInvoices();
   },
-  mounted() {
-    window.addEventListener("resize", this.checkScreenSize);
-  },
-  beforeUnmount() {
-    window.removeEventListener("resize", this.checkScreenSize);
+  computed: {
+    isInvoicesEmpty() {
+      return this.invoices.length === 0;
+    },
   },
 };
 </script>
 
 <template>
   <div class="invoices">
-    <ul class="invoices__list">
+    <EmptyInvoiceFigure v-if="isInvoicesEmpty" />
+    <ul v-else class="invoices__list">
       <li v-for="invoice in invoices" :key="invoice.id" class="invoice__item">
         <div class="invoice__header">
           <p class="invoice__id">#{{ invoice.id }}</p>
@@ -52,10 +60,10 @@ export default {
             <p class="invoice__total">{{ formatCurrency(invoice.total) }}</p>
           </div>
           <div class="body__item">
-            <p class="invoice__status" :class="[invoice.status]">
+            <p :class="`invoice__status ${invoice.status}`">
               {{ capitalizeFirstLetter(invoice.status) }}
             </p>
-            <IconArrowRight v-if="isMobile" />
+            <IconArrowRight v-show="isMobile" />
           </div>
         </div>
       </li>
