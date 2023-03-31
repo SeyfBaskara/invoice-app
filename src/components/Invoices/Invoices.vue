@@ -10,21 +10,30 @@ export default {
   },
   data: function () {
     return {
+      isLoading: false,
+      hasError: false,
+      errorMessage: "",
       invoices: [],
       isMobile: false,
     };
   },
-  mounted() {
-    window.addEventListener("resize", this.checkScreenSize);
-  },
-  beforeUnmount() {
-    window.removeEventListener("resize", this.checkScreenSize);
-  },
   methods: {
     async fetchInvoices() {
-      const res = await fetch("http://localhost:5000/invoices");
-      const data = await res.json();
-      return data;
+      try {
+        this.isLoading = true;
+        const res = await fetch("http://localhost:5000/invoices");
+
+        if (!res.ok) {
+          const message = `An Error has accured: ${res.status} - ${res.statusText}`;
+          throw new Error(message);
+        }
+        this.invoices = await res.json();
+        this.isLoading = false;
+      } catch (error) {
+        this.isLoading = false;
+        this.hasError = true;
+        this.errorMessage = error.message;
+      }
     },
     capitalizeFirstLetter(str) {
       return str.charAt(0).toUpperCase() + str.slice(1);
@@ -34,20 +43,27 @@ export default {
       this.isMobile = window.innerWidth > 480;
     },
   },
-  async created() {
-    this.invoices = await this.fetchInvoices();
-  },
   computed: {
     isInvoicesEmpty() {
       return this.invoices.length === 0;
     },
+  },
+  mounted() {
+    this.fetchInvoices();
+    window.addEventListener("resize", this.checkScreenSize);
+  },
+  beforeUnmount() {
+    window.removeEventListener("resize", this.checkScreenSize);
   },
 };
 </script>
 
 <template>
   <div class="invoices">
-    <EmptyInvoiceFigure v-if="isInvoicesEmpty" />
+    <p v-if="isLoading">Loading...</p>
+    <p v-else-if="hasError">{{ errorMessage }}</p>
+    <EmptyInvoiceFigure v-else-if="isInvoicesEmpty" />
+
     <ul v-else class="invoices__list">
       <li v-for="invoice in invoices" :key="invoice.id" class="invoice__item">
         <div class="invoice__header">
