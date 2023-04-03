@@ -6,13 +6,8 @@ export default {
     return {};
   },
   computed: {
-    setStatus() {
-      return this.status === "pending"
-        ? "paid"
-        : this.status === "draft"
-        ? "pending"
-        : "draft";
-    },
+    setStatus: (state) => (state.status !== "paid" ? "paid" : "pending"),
+    isDraft: (state) => state.status === "draft",
   },
 };
 </script>
@@ -25,7 +20,7 @@ export default {
     <div class="widget__buttons">
       <button>Edit</button>
       <Button>Delete</Button>
-      <Button>Mark as {{ setStatus }}</Button>
+      <Button v-show="!isDraft">Mark as {{ setStatus }}</Button>
     </div>
   </section>
 </template>
