@@ -1,22 +1,22 @@
-<script>
+<script setup>
 import Layout from "../components/Layout/Layout.vue";
 import IconArrowLeft from "../assets/icons/IconArrowLeft.vue";
 
-export default {
-  name: "invoiceDetails",
-  components: {
-    Layout,
-    IconArrowLeft,
-  },
-  data: function () {
-    return {};
-  },
-  methods: {
-    handleGoBack() {
-      this.$router.push("/");
-    },
-  },
-};
+import { useRouter } from "vue-router";
+import { storeToRefs } from "pinia";
+
+import { useInvoicesStore } from "../stores/invoices";
+
+const router = useRouter();
+const store = useInvoicesStore();
+
+const { invoiceDetails } = storeToRefs(store);
+
+console.log(invoiceDetails.value);
+
+function handleGoBack() {
+  router.push("/");
+}
 </script>
 
 <template>

@@ -8,6 +8,7 @@ export const useInvoicesStore = defineStore("invoices", {
     errorMessage: "",
     isMobile: false,
     invoiceLists: [],
+    invoiceDetails: {},
   }),
   getters: {
     capitalizeFirstLetter: () => {
@@ -35,5 +36,8 @@ export const useInvoicesStore = defineStore("invoices", {
       }
     },
     formatCurrency,
+    getInvoiceDetails(invoice) {
+      this.invoiceDetails = invoice;
+    },
   },
 });

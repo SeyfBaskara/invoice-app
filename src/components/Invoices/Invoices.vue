@@ -26,7 +26,7 @@ onMounted(() => {
 });
 
 function handleGoToDetails(invoice) {
-  console.log(invoice);
+  store.getInvoiceDetails(invoice);
   router.push("/invoiceDetails");
 }
 </script>
