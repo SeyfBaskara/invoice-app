@@ -1,62 +1,34 @@
-<script>
-import { formatCurrency } from "../../utils/formatCurrency";
+<script setup>
 import IconArrowRight from "../../assets/icons/IconArrowRight.vue";
 import EmptyInvoiceFigure from "./EmptyInvoiceFigure.vue";
 
-export default {
-  components: {
-    IconArrowRight,
-    EmptyInvoiceFigure,
-  },
-  data: function () {
-    return {
-      isLoading: false,
-      hasError: false,
-      errorMessage: "",
-      invoices: [],
-      isMobile: false,
-    };
-  },
-  methods: {
-    async fetchInvoices() {
-      try {
-        this.isLoading = true;
-        const res = await fetch("http://localhost:5000/invoices");
+import { onMounted } from "vue";
+import { useRouter } from "vue-router";
+import { storeToRefs } from "pinia";
 
-        if (!res.ok) {
-          const message = `An Error has accured: ${res.status} - ${res.statusText}`;
-          throw new Error(message);
-        }
-        this.invoices = await res.json();
-        this.isLoading = false;
-      } catch (error) {
-        this.isLoading = false;
-        this.hasError = true;
-        this.errorMessage = error.message;
-      }
-    },
-    capitalizeFirstLetter(str) {
-      return str.charAt(0).toUpperCase() + str.slice(1);
-    },
-    formatCurrency,
-    checkScreenSize() {
-      this.isMobile = window.innerWidth > 480;
-    },
-    handleGoToDetails(invoice) {
-      console.log(invoice);
-      this.$router.push("/invoiceDetails");
-    },
-  },
-  computed: {
-    isInvoicesEmpty() {
-      return this.invoices.length === 0;
-    },
-  },
-  mounted() {
-    this.fetchInvoices();
-    this.checkScreenSize();
-  },
-};
+import { useInvoicesStore } from "../../stores/invoices";
+
+const router = useRouter();
+const store = useInvoicesStore();
+
+const {
+  invoiceLists,
+  isLoading,
+  hasError,
+  errorMessage,
+  isInvoicesEmpty,
+  isLargeScreen,
+  capitalizeFirstLetter,
+} = storeToRefs(store);
+
+onMounted(() => {
+  store.fetchInvoiceLists();
+});
+
+function handleGoToDetails(invoice) {
+  console.log(invoice);
+  router.push("/invoiceDetails");
+}
 </script>
 
 <template>
@@ -68,7 +40,7 @@ export default {
 
     <ul v-else class="invoices__list">
       <li
-        v-for="invoice in invoices"
+        v-for="invoice in invoiceLists"
         :key="invoice.id"
         class="invoice__item"
         @click="handleGoToDetails(invoice)"
@@ -80,14 +52,16 @@ export default {
         <div class="invoice__body">
           <div class="body__item">
             <p class="invoice__date">Due {{ invoice.paymentDue }}</p>
-            <p class="invoice__total">{{ formatCurrency(invoice.total) }}</p>
+            <p class="invoice__total">
+              {{ store.formatCurrency(invoice.total) }}
+            </p>
           </div>
           <div class="body__item">
             <p :class="`invoice__status ${invoice.status}`">
               {{ capitalizeFirstLetter(invoice.status) }}
             </p>
             <IconArrowRight
-              v-show="isMobile"
+              v-show="isLargeScreen"
               @click="handleGoToDetails(invoice)"
               class="invoice-iconArrow"
             />
