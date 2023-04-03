@@ -44,6 +44,7 @@ export default {
     },
     handleGoToDetails(invoice) {
       console.log(invoice);
+      this.$router.push("/invoiceDetails");
     },
   },
   computed: {
@@ -88,6 +89,7 @@ export default {
             <IconArrowRight
               v-show="isMobile"
               @click="handleGoToDetails(invoice)"
+              class="invoice-iconArrow"
             />
           </div>
         </div>
@@ -191,6 +193,9 @@ export default {
     align-items: center;
     gap: 1rem;
     flex: 1;
+  }
+  .invoice-iconArrow {
+    cursor: pointer;
   }
 }
 </style>
