@@ -42,6 +42,9 @@ export default {
     checkScreenSize() {
       this.isMobile = window.innerWidth > 480;
     },
+    handleGoToDetails(invoice) {
+      console.log(invoice);
+    },
   },
   computed: {
     isInvoicesEmpty() {
@@ -63,7 +66,12 @@ export default {
     <EmptyInvoiceFigure v-else-if="isInvoicesEmpty" />
 
     <ul v-else class="invoices__list">
-      <li v-for="invoice in invoices" :key="invoice.id" class="invoice__item">
+      <li
+        v-for="invoice in invoices"
+        :key="invoice.id"
+        class="invoice__item"
+        @click="handleGoToDetails(invoice)"
+      >
         <div class="invoice__header">
           <p class="invoice__id">#{{ invoice.id }}</p>
           <p class="invoice__name">{{ invoice.clientName }}</p>
@@ -77,7 +85,10 @@ export default {
             <p :class="`invoice__status ${invoice.status}`">
               {{ capitalizeFirstLetter(invoice.status) }}
             </p>
-            <IconArrowRight v-show="isMobile" />
+            <IconArrowRight
+              v-show="isMobile"
+              @click="handleGoToDetails(invoice)"
+            />
           </div>
         </div>
       </li>
