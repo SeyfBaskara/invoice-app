@@ -50,18 +50,16 @@ export default {
   },
   mounted() {
     this.fetchInvoices();
-    window.addEventListener("resize", this.checkScreenSize);
-  },
-  beforeUnmount() {
-    window.removeEventListener("resize", this.checkScreenSize);
+    this.checkScreenSize();
   },
 };
 </script>
 
 <template>
   <div class="invoices">
-    <p v-if="isLoading">Loading...</p>
-    <p v-else-if="hasError">{{ errorMessage }}</p>
+    <div v-if="isLoading">Loading...</div>
+
+    <div v-else-if="hasError">{{ errorMessage }}</div>
     <EmptyInvoiceFigure v-else-if="isInvoicesEmpty" />
 
     <ul v-else class="invoices__list">
