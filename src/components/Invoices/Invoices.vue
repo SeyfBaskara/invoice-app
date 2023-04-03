@@ -43,7 +43,7 @@ function handleGoToDetails(invoice) {
         v-for="invoice in invoiceLists"
         :key="invoice.id"
         class="invoice__item"
-        @click="handleGoToDetails(invoice)"
+        @click="isLargeScreen ? null : handleGoToDetails(invoice)"
       >
         <div class="invoice__header">
           <p class="invoice__id">#{{ invoice.id }}</p>

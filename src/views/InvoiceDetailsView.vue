@@ -4,7 +4,6 @@ import IconArrowLeft from "../assets/icons/IconArrowLeft.vue";
 
 import { useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
-
 import { useInvoicesStore } from "../stores/invoices";
 
 const router = useRouter();
