@@ -1,6 +1,7 @@
 <script setup>
 import Layout from "../components/Layout/Layout.vue";
 import IconArrowLeft from "../assets/icons/IconArrowLeft.vue";
+import StatusWidget from "../components/InvoiceDetails/StatusWidget.vue";
 
 import { useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
@@ -10,7 +11,7 @@ const router = useRouter();
 const store = useInvoicesStore();
 
 const { invoiceDetails } = storeToRefs(store);
-
+const { status } = invoiceDetails.value;
 console.log(invoiceDetails.value);
 
 function handleGoBack() {
@@ -25,7 +26,7 @@ function handleGoBack() {
         <IconArrowLeft />
         <p>Go Back</p>
       </div>
-      <p>invoice details</p>
+      <StatusWidget :status="status" />
     </main>
   </Layout>
 </template>

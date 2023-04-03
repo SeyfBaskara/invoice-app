@@ -1,0 +1,83 @@
+<script>
+export default {
+  components: {},
+  props: ["status"],
+  data: function () {
+    return {};
+  },
+  computed: {
+    setStatus() {
+      return this.status === "pending"
+        ? "paid"
+        : this.status === "draft"
+        ? "pending"
+        : "draft";
+    },
+  },
+};
+</script>
+<template>
+  <section class="widget">
+    <div class="widget__status">
+      <h2>Status</h2>
+      <p :class="`invoice__status ${status}`">{{ status }}</p>
+    </div>
+    <div class="widget__buttons">
+      <button>Edit</button>
+      <Button>Delete</Button>
+      <Button>Mark as {{ setStatus }}</Button>
+    </div>
+  </section>
+</template>
+
+<style scoped>
+.widget__status,
+.widget__buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  padding: 1.7rem 1rem;
+  border-radius: 10px;
+}
+.widget__status > h2 {
+  font-size: 1.2rem;
+  color: var(--text-primary-color);
+}
+.widget__buttons {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  border-radius: 0;
+}
+.invoice__status {
+  width: 100px;
+  text-align: center;
+  border-radius: 10px;
+  font-weight: bolder;
+  font-size: small;
+  padding: 0.5rem;
+  padding-top: 0;
+}
+.paid {
+  background-color: rgba(204, 246, 218, 0.5);
+  color: rgb(80, 221, 127);
+}
+.pending {
+  background-color: rgba(246, 232, 211, 0.5);
+  color: orange;
+}
+.draft {
+  background-color: rgba(231, 233, 233, 0.5);
+  color: black;
+}
+.invoice__status::before {
+  content: "\2022";
+  display: inline-block;
+  position: relative;
+  top: 3px;
+  margin-right: 0.3rem;
+  font-size: x-large;
+}
+</style>
