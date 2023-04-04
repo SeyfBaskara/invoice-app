@@ -2,6 +2,7 @@
 import Layout from "../components/Layout/Layout.vue";
 import IconArrowLeft from "../assets/icons/IconArrowLeft.vue";
 import StatusWidget from "../components/InvoiceDetails/StatusWidget.vue";
+import InvoiceDetails from "../components/InvoiceDetails/InvoiceDetails.vue";
 
 import { useRouter } from "vue-router";
 import { storeToRefs } from "pinia";
@@ -21,18 +22,19 @@ function handleGoBack() {
 
 <template>
   <Layout>
-    <main class="details">
+    <main class="view-details">
       <div class="details__redirect" @click="handleGoBack">
         <IconArrowLeft />
         <p>Go Back</p>
       </div>
       <StatusWidget :status="status" />
+      <InvoiceDetails />
     </main>
   </Layout>
 </template>
 
 <style scoped>
-.details {
+.view-details {
   padding: 1.2rem;
 }
 .details__redirect {
@@ -46,13 +48,13 @@ function handleGoBack() {
   font-weight: bold;
 }
 @media screen and (min-width: 768px) {
-  .details {
+  .view-details {
     width: 80vw;
     margin: 0 auto;
   }
 }
 @media screen and (min-width: 976px) {
-  .details {
+  .view-details {
     width: 65vw;
   }
 }
