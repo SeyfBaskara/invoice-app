@@ -9,8 +9,10 @@
   --text-primary-color: #7e88c3;
   --text-secondary-color: #0c0e16;
 
+  --delete-color: #ec5757;
+  --succes-color: #7c5dfa;
+
   /* --success-color: #28a745;
-  --danger-color: #dc3545;
   --warning-color: #ffc107;
   --info-color: #17a2b8;
   --light-color: #f8f9fa;
