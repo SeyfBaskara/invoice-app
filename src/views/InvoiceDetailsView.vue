@@ -13,7 +13,6 @@ const store = useInvoicesStore();
 
 const { invoiceDetails } = storeToRefs(store);
 const { status } = invoiceDetails.value;
-console.log(invoiceDetails.value);
 
 function handleGoBack() {
   router.push("/");
@@ -28,7 +27,7 @@ function handleGoBack() {
         <p>Go Back</p>
       </div>
       <StatusWidget :status="status" />
-      <InvoiceDetails />
+      <InvoiceDetails v-bind="{ invoiceDetails }" />
     </main>
   </Layout>
 </template>

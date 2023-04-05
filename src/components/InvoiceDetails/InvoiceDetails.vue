@@ -1,6 +1,11 @@
 <script>
+import Address from "./Address.vue";
+
 export default {
-  components: {},
+  components: {
+    Address,
+  },
+  props: ["invoiceDetails"],
   data: function () {
     return {};
   },
@@ -11,12 +16,10 @@ export default {
   <section>
     <div>
       <div>
-        <p>id</p>
-        <p>description</p>
+        <p>{{ invoiceDetails.id }}</p>
+        <p>{{ invoiceDetails.description }}</p>
       </div>
-      <div>
-        <p>SenderAddress</p>
-      </div>
+      <!-- <Address :address="invoiceDetails.senderAddress" /> -->
     </div>
     <div>second block</div>
     <div>third block</div>
