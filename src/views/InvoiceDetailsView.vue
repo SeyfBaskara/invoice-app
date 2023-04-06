@@ -27,7 +27,7 @@ function handleGoBack() {
         <p>Go Back</p>
       </div>
       <StatusWidget :status="status" />
-      <InvoiceDetails v-bind="{ invoiceDetails }" />
+      <InvoiceDetails v-bind="invoiceDetails" />
     </main>
   </Layout>
 </template>

@@ -1,6 +1,6 @@
 <script>
 export default {
-  props: ["address"],
+  props: ["street", "city", "postCode", "country"],
   components: {},
   data: function () {
     return {};
@@ -9,9 +9,15 @@ export default {
 </script>
 
 <template>
-  <div>
-    <p>{{ address.street }}</p>
-  </div>
+  <address class="address">
+    {{ street }} <br />
+    {{ city }}<br />{{ postCode }}<br />{{ country }}
+  </address>
 </template>
 
-<style scoped></style>
+<style scoped>
+.address {
+  color: var(--text-primary-color);
+  font-size: 0.9rem;
+}
+</style>
