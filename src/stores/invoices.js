@@ -9,7 +9,7 @@ export const useInvoicesStore = defineStore("invoices", {
     errorMessage: "",
     isMobile: false,
     invoiceLists: [],
-    invoiceDetails: {},
+    invoiceDetails: JSON.parse(localStorage.getItem("invoiceDetails")),
   }),
   getters: {
     capitalizeFirstLetter: () => {
@@ -38,8 +38,12 @@ export const useInvoicesStore = defineStore("invoices", {
     },
     formatCurrency,
     formatDate,
-    getInvoiceDetails(invoice) {
-      this.invoiceDetails = invoice;
+    getInvoiceDetails(id) {
+      this.invoiceDetails = this.invoiceLists.find((item) => item.id === id);
+      localStorage.setItem(
+        "invoiceDetails",
+        JSON.stringify(this.invoiceDetails)
+      );
     },
   },
 });

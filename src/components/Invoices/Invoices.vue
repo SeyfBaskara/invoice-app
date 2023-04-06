@@ -25,9 +25,9 @@ onMounted(() => {
   store.fetchInvoiceLists();
 });
 
-function handleGoToDetails(invoice) {
-  store.getInvoiceDetails(invoice);
-  router.push("/invoiceDetails");
+function handleGoToDetails(id) {
+  store.getInvoiceDetails(id);
+  router.push(`/invoiceDetails/${id}`);
 }
 </script>
 
@@ -43,7 +43,7 @@ function handleGoToDetails(invoice) {
         v-for="invoice in invoiceLists"
         :key="invoice.id"
         class="invoice__item"
-        @click="isLargeScreen ? null : handleGoToDetails(invoice)"
+        @click="isLargeScreen ? null : handleGoToDetails(invoice.id)"
       >
         <div class="invoice__header">
           <p class="invoice__id">#{{ invoice.id }}</p>
@@ -64,7 +64,7 @@ function handleGoToDetails(invoice) {
             </p>
             <IconArrowRight
               v-show="isLargeScreen"
-              @click="handleGoToDetails(invoice)"
+              @click="handleGoToDetails(invoice.id)"
               class="invoice-iconArrow"
             />
           </div>
