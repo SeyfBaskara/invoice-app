@@ -51,7 +51,9 @@ function handleGoToDetails(invoice) {
         </div>
         <div class="invoice__body">
           <div class="body__item">
-            <p class="invoice__date">Due {{ invoice.paymentDue }}</p>
+            <p class="invoice__date">
+              Due {{ store.formatDate(invoice.paymentDue) }}
+            </p>
             <p class="invoice__total">
               {{ store.formatCurrency(invoice.total) }}
             </p>

@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "json-server": "^0.17.3",
+    "moment": "^2.29.4",
     "pinia": "^2.0.26",
     "vue": "^3.2.45",
     "vue-router": "^4.1.6"

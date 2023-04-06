@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { formatCurrency } from "../utils/formatCurrency";
+import { formatDate } from "../utils/formatDate";
 
 export const useInvoicesStore = defineStore("invoices", {
   state: () => ({
@@ -36,6 +37,7 @@ export const useInvoicesStore = defineStore("invoices", {
       }
     },
     formatCurrency,
+    formatDate,
     getInvoiceDetails(invoice) {
       this.invoiceDetails = invoice;
     },

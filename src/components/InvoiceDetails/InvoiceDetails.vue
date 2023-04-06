@@ -1,5 +1,6 @@
 <script>
 import Address from "./Address.vue";
+import { formatDate } from "../../utils/formatDate";
 
 export default {
   name: "InvoiceDetails",
@@ -19,6 +20,9 @@ export default {
   data: function () {
     return {};
   },
+  methods: {
+    formatDate,
+  },
 };
 </script>
 
@@ -36,10 +40,10 @@ export default {
       <div class="inner-block">
         <div class="dates">
           <p class="date">
-            Invoice date <br /><span>{{ createdAt }}</span>
+            Invoice date <br /><span>{{ formatDate(createdAt) }}</span>
           </p>
           <p class="date">
-            Payment Due <br /><span>{{ paymentDue }}</span>
+            Payment Due <br /><span>{{ formatDate(paymentDue) }}</span>
           </p>
         </div>
 
