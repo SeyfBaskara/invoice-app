@@ -1,11 +1,13 @@
 <script>
 import Address from "./Address.vue";
 import { formatDate } from "../../utils/formatDate";
+import ItemDetails from "./ItemDetails.vue";
 
 export default {
   name: "InvoiceDetails",
   components: {
     Address,
+    ItemDetails,
   },
   props: [
     "id",
@@ -16,6 +18,8 @@ export default {
     "paymentDue",
     "clientName",
     "clientEmail",
+    "items",
+    "total",
   ],
   data: function () {
     return {};
@@ -60,7 +64,7 @@ export default {
       </p>
     </div>
 
-    <div>third block</div>
+    <ItemDetails :items="items" :total="total" />
   </section>
 </template>
 
@@ -68,7 +72,7 @@ export default {
 .invoice {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 2.5rem;
   background-color: white;
   margin-top: 1rem;
   border-radius: 10px;
