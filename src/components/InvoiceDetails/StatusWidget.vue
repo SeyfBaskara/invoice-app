@@ -97,4 +97,20 @@ export default {
   background-color: var(--primary-color);
   color: white;
 }
+
+@media screen and (min-width: 480px) {
+  .widget {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .widget__buttons {
+    position: static;
+  }
+
+  .widget__status,
+  .widget__buttons {
+    justify-content: start;
+  }
+}
 </style>
