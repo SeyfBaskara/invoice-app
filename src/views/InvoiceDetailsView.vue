@@ -50,11 +50,13 @@ function handleGoBack() {
   .view-details {
     width: 80vw;
     margin: 0 auto;
+    margin-right: 1rem;
   }
 }
 @media screen and (min-width: 976px) {
   .view-details {
     width: 65vw;
+    margin: 0 auto;
   }
 }
 </style>

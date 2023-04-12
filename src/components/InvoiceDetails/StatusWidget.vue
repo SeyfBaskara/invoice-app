@@ -101,16 +101,26 @@ export default {
 @media screen and (min-width: 480px) {
   .widget {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
+    background-color: white;
+    border-radius: 10px;
   }
   .widget__buttons {
     position: static;
+    justify-content: end;
+    overflow: hidden;
+    border-radius: 10px;
   }
 
-  .widget__status,
-  .widget__buttons {
-    justify-content: start;
+  .widget__buttons,
+  .widget__status {
+    gap: 0.3rem;
+  }
+}
+
+@media screen and (min-width: 480px) {
+  .widget__buttons,
+  .widget__status {
+    gap: 1rem;
   }
 }
 </style>
