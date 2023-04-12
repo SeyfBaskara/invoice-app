@@ -29,11 +29,13 @@ export default {
   .home {
     width: 80vw;
     margin: 0 auto;
+    margin-right: 1rem;
   }
 }
 @media screen and (min-width: 976px) {
   .home {
     width: 65vw;
+    margin: 0 auto;
   }
 }
 </style>

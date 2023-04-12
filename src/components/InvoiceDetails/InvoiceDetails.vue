@@ -123,4 +123,35 @@ export default {
 .client-name {
   margin-bottom: 0.5rem;
 }
+
+@media screen and (min-width: 480px) {
+  .invoice {
+    margin-bottom: 0;
+  }
+
+  .invoice__header {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .invoice__body {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .inner-block {
+    justify-content: space-between;
+    width: 340px;
+  }
+
+  .client-email {
+    min-width: 150px;
+  }
+}
+
+@media screen and (min-width: 976px) {
+  .inner-block {
+    width: 400px;
+  }
+}
 </style>
