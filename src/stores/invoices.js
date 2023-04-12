@@ -45,5 +45,8 @@ export const useInvoicesStore = defineStore("invoices", {
         JSON.stringify(this.invoiceDetails)
       );
     },
+    deleteInvoice(id) {
+      console.log(id);
+    },
   },
 });
