@@ -23,9 +23,14 @@ export const useInvoicesStore = defineStore("invoices", {
     async fetchInvoices() {
       try {
         this.isLoading = true;
-        const { data } = await API.fetchInvoices();
+        const res = await API.fetchInvoices();
 
-        this.invoiceLists = data;
+        if (res.status !== 200) {
+          const message = `Something went wrong! status:${res.status}, statusText:${res.statusText}`;
+          throw Error(message);
+        }
+
+        this.invoiceLists = res.data;
         this.isLoading = false;
       } catch (error) {
         this.isLoading = false;
@@ -42,7 +47,12 @@ export const useInvoicesStore = defineStore("invoices", {
     },
     async deleteInvoice(id) {
       try {
-        await API.deleteInvoice(id);
+        const res = await API.deleteInvoice(id);
+
+        if (res.status !== 200) {
+          const message = `Something went wrong! status:${res.status}, statusText:${res.statusText}`;
+          throw Error(message);
+        }
 
         this.invoiceLists = this.invoiceLists.filter((el) => el.id !== id);
       } catch (error) {
