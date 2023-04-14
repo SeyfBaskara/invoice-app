@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { formatCurrency } from "../utils/formatCurrency";
 import { formatDate } from "../utils/formatDate";
+import * as API from "../api/index";
 
 export const useInvoicesStore = defineStore("invoices", {
   state: () => ({
@@ -19,16 +20,12 @@ export const useInvoicesStore = defineStore("invoices", {
     isLargeScreen: () => window.innerWidth > 480,
   },
   actions: {
-    async fetchInvoiceLists() {
+    async fetchInvoices() {
       try {
         this.isLoading = true;
-        const res = await fetch("http://localhost:5000/invoices");
+        const { data } = await API.fetchInvoices();
 
-        if (!res.ok) {
-          const message = `An Error has accured: ${res.status} - ${res.statusText}`;
-          throw new Error(message);
-        }
-        this.invoiceLists = await res.json();
+        this.invoiceLists = data;
         this.isLoading = false;
       } catch (error) {
         this.isLoading = false;
@@ -36,17 +33,27 @@ export const useInvoicesStore = defineStore("invoices", {
         this.errorMessage = error.message;
       }
     },
-    formatCurrency,
-    formatDate,
-    getInvoiceDetails(id) {
+    fetchInvoice(id) {
       this.invoiceDetails = this.invoiceLists.find((item) => item.id === id);
       localStorage.setItem(
         "invoiceDetails",
         JSON.stringify(this.invoiceDetails)
       );
     },
-    deleteInvoice(id) {
-      console.log(id);
+    async deleteInvoice(id) {
+      try {
+        await API.deleteInvoice(id);
+
+        this.invoiceLists = this.invoiceLists.filter((el) => el.id !== id);
+      } catch (error) {
+        this.hasError = true;
+        this.errorMessage = error.message;
+      }
+    },
+    formatCurrency,
+    formatDate,
+    setHasError() {
+      this.hasError = false;
     },
   },
 });
