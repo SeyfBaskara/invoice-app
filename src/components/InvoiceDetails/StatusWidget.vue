@@ -8,6 +8,15 @@ export default {
     status: {
       type: String,
     },
+    hasError: {
+      type: Boolean,
+    },
+    setHasError: {
+      type: Function,
+    },
+    errorMessage: {
+      type: String,
+    },
     deleteInvoice: {
       type: Function,
     },
@@ -18,9 +27,16 @@ export default {
     };
   },
   methods: {
-    handleConfirmDelete() {
-      this.deleteInvoice(this.$route.params.id);
+    async handleConfirmDelete() {
+      await this.deleteInvoice(this.$route.params.id);
+      if (!this.hasError) {
+        this.showLightBox = false;
+        this.$router.push("/");
+      }
+    },
+    handleCancel() {
       this.showLightBox = false;
+      this.setHasError();
     },
   },
   computed: {
@@ -45,12 +61,13 @@ export default {
   </section>
   <lightBox :show="showLightBox">
     <h2>Confirm Deletion</h2>
-    <p class="lightbox__text">
+    <p class="lightbox__text" v-if="!hasError">
       Are you sure you want to delete invoice #{{ this.$route.params.id }}? This
       action cannot be undone.
     </p>
+    <p v-else class="lightbox__text">{{ errorMessage }}. try it later!</p>
     <div class="lightbox__btns">
-      <button class="button" @click="showLightBox = false">Cancel</button>
+      <button class="button" @click="handleCancel">Cancel</button>
       <button class="button delete" @click="handleConfirmDelete">Delete</button>
     </div>
   </lightBox>

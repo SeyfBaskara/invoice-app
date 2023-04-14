@@ -11,10 +11,11 @@ import { useInvoicesStore } from "../stores/invoices";
 const router = useRouter();
 const store = useInvoicesStore();
 
-const { invoiceDetails } = storeToRefs(store);
+const { invoiceDetails, hasError, errorMessage } = storeToRefs(store);
 const { status } = invoiceDetails.value;
 
 function handleGoBack() {
+  store.setHasError();
   router.push("/");
 }
 </script>
@@ -26,7 +27,13 @@ function handleGoBack() {
         <IconArrowLeft />
         <p>Go Back</p>
       </div>
-      <StatusWidget :status="status" :deleteInvoice="store.deleteInvoice" />
+      <StatusWidget
+        :status="status"
+        :hasError="hasError"
+        :setHasError="store.setHasError"
+        :errorMessage="errorMessage"
+        :deleteInvoice="store.deleteInvoice"
+      />
       <InvoiceDetails v-bind="invoiceDetails" />
     </main>
   </Layout>
