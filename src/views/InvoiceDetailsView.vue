@@ -26,7 +26,7 @@ function handleGoBack() {
         <IconArrowLeft />
         <p>Go Back</p>
       </div>
-      <StatusWidget :status="status" />
+      <StatusWidget :status="status" :deleteInvoice="store.deleteInvoice" />
       <InvoiceDetails v-bind="invoiceDetails" />
     </main>
   </Layout>

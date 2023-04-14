@@ -1,9 +1,27 @@
 <script>
+import LightBox from "../Layout/LightBox.vue";
 export default {
-  components: {},
-  props: ["status"],
+  components: {
+    LightBox,
+  },
+  props: {
+    status: {
+      type: String,
+    },
+    deleteInvoice: {
+      type: Function,
+    },
+  },
   data: function () {
-    return {};
+    return {
+      showLightBox: false,
+    };
+  },
+  methods: {
+    handleConfirmDelete() {
+      this.deleteInvoice(this.$route.params.id);
+      this.showLightBox = false;
+    },
   },
   computed: {
     setStatus: (state) => (state.status !== "paid" ? "paid" : "pending"),
@@ -19,12 +37,23 @@ export default {
     </div>
     <div class="widget__buttons">
       <button class="button edit">Edit</button>
-      <Button class="button delete">Delete</Button>
+      <Button class="button delete" @click="showLightBox = true">Delete</Button>
       <Button class="button mark-as" v-show="!isDraft"
         >Mark as {{ setStatus }}</Button
       >
     </div>
   </section>
+  <lightBox :show="showLightBox">
+    <h2>Confirm Deletion</h2>
+    <p class="lightbox__text">
+      Are you sure you want to delete invoice #{{ this.$route.params.id }}? This
+      action cannot be undone.
+    </p>
+    <div class="lightbox__btns">
+      <button class="button" @click="showLightBox = false">Cancel</button>
+      <button class="button delete" @click="handleConfirmDelete">Delete</button>
+    </div>
+  </lightBox>
 </template>
 
 <style scoped>
@@ -96,6 +125,16 @@ export default {
 .mark-as {
   background-color: var(--primary-color);
   color: white;
+}
+
+.lightbox__text {
+  font-size: 0.9rem;
+  margin: 1rem 0 1.5rem 0;
+}
+.lightbox__btns {
+  display: flex;
+  justify-content: end;
+  gap: 1rem;
 }
 
 @media screen and (min-width: 480px) {
