@@ -22,11 +22,11 @@ const {
 } = storeToRefs(store);
 
 onMounted(() => {
-  store.fetchInvoiceLists();
+  store.fetchInvoices();
 });
 
 function handleGoToDetails(id) {
-  store.getInvoiceDetails(id);
+  store.fetchInvoice(id);
   router.push(`/invoiceDetails/${id}`);
 }
 </script>
