@@ -1,21 +1,25 @@
 <script>
 import IconArrowDown from "../../assets/icons/IconArrowDown.vue";
 import IconPlus from "../../assets/icons/IconPlus.vue";
+import FilterDropMenu from "./FilterDropMenu.vue";
 
 export default {
   components: {
     IconArrowDown,
     IconPlus,
+    FilterDropMenu,
   },
   data: function () {
-    return {};
+    return {
+      isDropMenu: false,
+    };
   },
   methods: {
     handleAddnew() {
       console.log("add new");
     },
     handleFilter() {
-      console.log("filter");
+      this.isDropMenu = !this.isDropMenu;
     },
   },
 };
@@ -31,6 +35,7 @@ export default {
       <div class="filter">
         <h4>Filter <span class="controlbar_hidden">by status</span></h4>
         <IconArrowDown @click="handleFilter" />
+        <FilterDropMenu v-show="isDropMenu" />
       </div>
       <div class="addnew">
         <div @click="handleAddnew" class="addnew__plus-icon">
@@ -67,6 +72,7 @@ export default {
   width: 200px;
 }
 .filter {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 0.8rem;
