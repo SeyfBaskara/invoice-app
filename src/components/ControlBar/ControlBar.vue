@@ -4,6 +4,11 @@ import IconPlus from "../../assets/icons/IconPlus.vue";
 import FilterDropMenu from "./FilterDropMenu.vue";
 
 export default {
+  props: {
+    fetchInvoiceByStatus: {
+      type: Function,
+    },
+  },
   components: {
     IconArrowDown,
     IconPlus,
@@ -35,7 +40,10 @@ export default {
       <div class="filter">
         <h4>Filter <span class="controlbar_hidden">by status</span></h4>
         <IconArrowDown @click="handleFilter" />
-        <FilterDropMenu v-show="isDropMenu" />
+        <FilterDropMenu
+          v-show="isDropMenu"
+          :fetchInvoiceByStatus="fetchInvoiceByStatus"
+        />
       </div>
       <div class="addnew">
         <div @click="handleAddnew" class="addnew__plus-icon">

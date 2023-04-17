@@ -1,21 +1,17 @@
-<script>
+<script setup>
 import Layout from "../components/Layout/Layout.vue";
 import Invoices from "../components/Invoices/Invoices.vue";
 import ControlBar from "../components/ControlBar/ControlBar.vue";
 
-export default {
-  components: {
-    Layout,
-    Invoices,
-    ControlBar,
-  },
-};
+import { useInvoicesStore } from "../stores/invoices";
+
+const store = useInvoicesStore();
 </script>
 
 <template>
   <Layout>
     <main class="home">
-      <ControlBar />
+      <ControlBar :fetchInvoiceByStatus="store.fetchInvoicesByStatus" />
       <Invoices />
     </main>
   </Layout>

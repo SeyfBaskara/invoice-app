@@ -38,6 +38,24 @@ export const useInvoicesStore = defineStore("invoices", {
         this.errorMessage = error.message;
       }
     },
+    async fetchInvoicesByStatus(status) {
+      try {
+        this.isLoading = true;
+        const res = await API.fetchInvoicesByStatus(status);
+
+        if (res.status !== 200) {
+          const message = `Something went wrong! status:${res.status}, statusText:${res.statusText}`;
+          throw Error(message);
+        }
+
+        this.invoiceLists = res.data;
+        this.isLoading = false;
+      } catch (error) {
+        this.isLoading = false;
+        this.hasError = true;
+        this.errorMessage = error.message;
+      }
+    },
     fetchInvoice(id) {
       this.invoiceDetails = this.invoiceLists.find((item) => item.id === id);
       localStorage.setItem(

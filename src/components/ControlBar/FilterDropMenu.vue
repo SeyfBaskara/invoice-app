@@ -1,9 +1,21 @@
 <script>
+import { capitalizeFirstLetter } from "../../utils/capitalizeFirstLetter";
 export default {
+  props: {
+    fetchInvoiceByStatus: {
+      type: Function,
+    },
+  },
   data: function () {
     return {
-      selected: "status",
+      selected: "",
     };
+  },
+  methods: {
+    capitalizeFirstLetter,
+    async handleChangeOption() {
+      await this.fetchInvoiceByStatus(this.selected);
+    },
   },
 };
 </script>
@@ -11,10 +23,15 @@ export default {
 <template>
   <section class="drop-menu">
     <ul class="menu-list">
-      <li v-for="(item, index) of ['Draft', 'Pending', 'Paid']" :key="index">
+      <li v-for="(item, index) of ['draft', 'pending', 'paid']" :key="index">
         <label class="item-label">
-          <input type="radio" v-model="selected" :value="item" />
-          {{ item }}
+          <input
+            type="radio"
+            v-model="selected"
+            :value="item"
+            @change="handleChangeOption"
+          />
+          {{ capitalizeFirstLetter(item) }}
         </label>
       </li>
     </ul>
