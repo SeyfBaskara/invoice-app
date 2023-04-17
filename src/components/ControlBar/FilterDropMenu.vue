@@ -63,6 +63,10 @@ export default {
   font-weight: bold;
   font-size: 0.9rem;
 }
+.item-label,
+.item-label > input {
+  cursor: pointer;
+}
 @media screen and (min-width: 480px) {
   .drop-menu {
     right: -1rem;

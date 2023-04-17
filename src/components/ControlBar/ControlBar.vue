@@ -26,6 +26,29 @@ export default {
     handleFilter() {
       this.isDropMenu = !this.isDropMenu;
     },
+    closeMenu() {
+      this.isDropMenu = false;
+    },
+  },
+  directives: {
+    "click-outside": {
+      beforeMount: (el, binding) => {
+        el.clickOutsideEvent = (event) => {
+          // here I check that click was outside the el and his children
+          if (!(el == event.target || el.contains(event.target))) {
+            // and if it did, call method provided in attribute value
+            binding.value();
+          }
+        };
+        document.addEventListener("click", el.clickOutsideEvent);
+      },
+      unmounted: (el) => {
+        document.removeEventListener("click", el.clickOutsideEvent);
+      },
+      stopProp(event) {
+        event.stopPropagation();
+      },
+    },
   },
 };
 </script>
@@ -37,7 +60,7 @@ export default {
       <p>7 invoices</p>
     </div>
     <div class="controlbar__right">
-      <div class="filter">
+      <div class="filter" v-click-outside="closeMenu">
         <h4>Filter <span class="controlbar_hidden">by status</span></h4>
         <IconArrowDown @click="handleFilter" />
         <FilterDropMenu
