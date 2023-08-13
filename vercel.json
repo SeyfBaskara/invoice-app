@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "api/data": {
+      "runtime": "vercel-node@16"
+    }
+  }
+}
